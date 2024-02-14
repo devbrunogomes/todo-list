@@ -1,18 +1,15 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { TasksContext } from "../../context/TasksContext";
 
 //Crio a interface que será o modelo do meu array do meu useState que pegará as tarefas
-interface Task {
-  title: string;
-  done: boolean;
-  id: number;
-}
+
 //--------------------------------------------------------------
 export const Tasks: React.FC = () => {
   //Estado para pegar o titulo das tarefas
   const [taskTitle, setTaskTitle] = useState("");
-  //Estado para pegar a lista de tarefas e atualizar o conteudo da pagina. Por ser Typescript eu indico o modelo que esse array vai seguir. Veja que eu inicio o estado com um array vazio
-  const [tasks, setTasks] = useState([] as Task[]);
+  
+  const { tasks, setTasks} = useContext(TasksContext)
 
   //--------------------------------------------------------------
 
@@ -42,17 +39,6 @@ export const Tasks: React.FC = () => {
     //Pra limpar o input após adicionar a tarefa
     setTaskTitle("");
   }
-  //--------------------------------------------------------------
-  //O useEffect será disparado na montagem do componente. Por isso, eu uso ele pra pegar o meu array de tarefas que ficou salvo no localStorage
-  //e passo um setTasks nele, como no meu HTML já tem um .map() disparando dentro do arrays tasks[] a renderização acontecerá.
-  useEffect(() => {
-    const tasksOnLocalStorage = localStorage.getItem('tasks')
-
-    if (tasksOnLocalStorage) {
-      setTasks(JSON.parse(tasksOnLocalStorage))
-    }
-  }, [])
-
 
   //--------------------------------------------------------------
   return (
