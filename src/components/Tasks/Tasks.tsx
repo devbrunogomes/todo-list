@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { TasksContext } from "../../context/TasksContext";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 //Crio a interface que será o modelo do meu array do meu useState que pegará as tarefas
 
@@ -8,8 +9,8 @@ import { TasksContext } from "../../context/TasksContext";
 export const Tasks: React.FC = () => {
   //Estado para pegar o titulo das tarefas
   const [taskTitle, setTaskTitle] = useState("");
-  
-  const { tasks, setTasks} = useContext(TasksContext)
+
+  const { tasks, setTasks } = useContext(TasksContext);
 
   //--------------------------------------------------------------
 
@@ -38,6 +39,21 @@ export const Tasks: React.FC = () => {
 
     //Pra limpar o input após adicionar a tarefa
     setTaskTitle("");
+  }
+  //--------------------------------------------------------------
+  function handleToggleTaskStatus(taskId: number) {
+    const newTasks = tasks.map((task) => {
+      if (taskId === task.id) {
+        return {
+          ...task,
+          done: !task.done,
+        };
+      }
+
+      return task;
+    });
+
+    setTasks(newTasks);
   }
 
   //--------------------------------------------------------------
@@ -71,8 +87,23 @@ export const Tasks: React.FC = () => {
           return (
             //Cada elemento deve ter uma chave key unica, por isso usa-se o task.id, já que ele sempre tem um número único. E se usa sempre no 1o elemento retornado
             <li key={task.id}>
-              <input type="checkbox" id={`task-${task.id}`} />
-              <label htmlFor={`task-${task.id}`}>{task.title}</label>
+              {/* obs: Ao contrario do evento do submit, aqui eu passo uma arrow function, pq a minha função tem um parametro, se eu fosse escrever apenas o nome da função, iria dar erro pq ela precisa de um parametro. E se eu apenas usasse o nome com o parametro eu estaria passando uma chamada de funcao, e nao uma funcao. E o onChange espera uma função. */}
+              <input
+                type="checkbox"
+                id={`task-${task.id}`}
+                onChange={() => {
+                  handleToggleTaskStatus(task.id);
+                }}
+              />
+              <label
+                htmlFor={`task-${task.id}`}
+                className={task.done ? styles.done : ""}
+              >
+                {task.title}
+                <button>
+                  <FaRegTrashAlt />
+                </button>
+              </label>
             </li>
           );
         })}
