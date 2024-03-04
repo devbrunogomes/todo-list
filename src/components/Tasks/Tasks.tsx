@@ -53,9 +53,27 @@ export const Tasks: React.FC = () => {
       return task;
     });
 
+    //Para salvar o array de tarefas dentro do armazenamento local
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
+
     setTasks(newTasks);
   }
+  //--------------------------------------------------------------
+  function handleRemoveTaskButton(taskId: number) {
+    //Vou filtrar o array de tasks, excluindo a task com o id passado como parametro e armazeno num novo array   
+    const tasksWithoutAnTask = tasks.filter((task) => {
+      if (task.id !== taskId) {
+        return task
+      }
+    })
 
+    //Atualizo o estado do array com um setTasks, passando esse novo array sem a task que foi excluída
+    setTasks(tasksWithoutAnTask)
+
+    //Para salvar o array de tarefas dentro do armazenamento local
+    localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
+
+  }
   //--------------------------------------------------------------
   return (
     <section className={styles.container}>
@@ -94,13 +112,16 @@ export const Tasks: React.FC = () => {
                 onChange={() => {
                   handleToggleTaskStatus(task.id);
                 }}
+                checked={task.done}
               />
               <label
                 htmlFor={`task-${task.id}`}
                 className={task.done ? styles.done : ""}
               >
                 {task.title}
-                <button>
+                <button onClick={() => {
+                  handleRemoveTaskButton(task.id)
+                }}>
                   <FaRegTrashAlt />
                 </button>
               </label>
