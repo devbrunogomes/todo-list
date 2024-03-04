@@ -11,7 +11,7 @@ export const StatsCard: React.FC<StatsCardProps> = (props) => {
     <article className={styles.stats_card}>
       <h2>{props.title}</h2>
 
-      <span>{props.value}</span>
+      <p>{props.value}</p>
     </article>
   )
 }

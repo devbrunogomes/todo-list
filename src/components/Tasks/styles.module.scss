@@ -1,20 +1,20 @@
 .container {
-  max-width: 80rem;
-  padding: 0 2rem;
-  margin: 7rem auto 0;
+  max-width: 60rem;
+  padding: 1rem 2rem;
+  margin: 4rem auto 0;
 
   form {
     display: flex;
     align-items: flex-end;
     gap: 1rem;
-    
+
     div {
       display: flex;
       flex-direction: column;
       width: 100%;
 
       label {
-        font-size: 0.85rem;
+        font-size: 1rem;
       }
 
       input {
@@ -22,6 +22,8 @@
         width: 100%;
         padding: 0 0 0 1rem;
         font-size: 1.5rem;
+        background-color: #f9f9f9;
+        border: 0.1rem solid black;
       }
     }
 
@@ -30,43 +32,70 @@
       height: 4rem;
       border: none;
       border-radius: 0.5rem;
-      background-color: #314da6 ;
+      background-color: #2a5feb;
       color: white;
+      cursor: pointer;
     }
   }
 
   ul {
     list-style: none;
     margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-    li {
+    .undone_li {
+      border-left: 1.2rem solid rgb(226, 134, 13);
+      background-color: #fff;
+      border-radius: 5px;
+      height: 6rem;
+      padding: 0 1rem 0 1rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+    }
 
-      input {
-        height: 1.5rem;
-        width: 1.5rem;
-      }
+    input {
+      height: 1.5rem;
+      width: 1.5rem;
+      cursor: pointer;
+    }
 
-      label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        font-size: 1.4rem;
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.6rem;
 
-        button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          transform: translateY(0.2rem);
-        }
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        transform: translateY(0.2rem);
       }
     }
   }
 }
 
-.done {
+.done_span {
   text-decoration: line-through;
+}
+
+.done_li {
+  border-left: 1.2rem solid rgb(83, 170, 83);
+  background-color: #fff;
+  border-radius: 5px;
+  height: 6rem;
+  padding: 0 1rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
 }

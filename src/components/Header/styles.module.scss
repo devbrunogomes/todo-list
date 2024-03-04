@@ -1,10 +1,11 @@
-.header {  
-  background-color: #181c23;
+.header {
+  background-color: #2a5feb;
   color: white;
+  max-height: 7rem;
 }
 
 .container {
-  max-width: 80rem;
+  max-width: 60rem;
   padding: 0 2rem;
   margin: 0 auto;
 
@@ -19,11 +20,15 @@
   }
 
   div:last-child {
+    background-color: #fff;
+    border-radius: 10px;
+    height: 6rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 2rem;
-
-    transform: translateY(50%);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.42);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.42);
   }
 }

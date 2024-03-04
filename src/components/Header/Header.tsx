@@ -28,15 +28,15 @@ export const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div>
-          <h1>MyTodo</h1>
+          <h1>To Do List</h1>
 
           <span>Bem vindo(a)</span>
         </div>
 
         <div>
-          <StatsCard title="Total de tarefas" value={totalTasks} />
-          <StatsCard title="Tarefas Pendentes" value={totalPending}/>
-          <StatsCard title="Tarefas Concluídas" value={totalDone}/>
+          <StatsCard title="Total" value={totalTasks} />
+          <StatsCard title="Pendentes" value={totalPending}/>
+          <StatsCard title="Concluídas" value={totalDone}/>
         </div>
       </div>
     </header>
