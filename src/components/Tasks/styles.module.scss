@@ -1,8 +1,10 @@
+// Section principal
 .container {
   max-width: 60rem;
   padding: 1rem 2rem;
   margin: 3rem auto 0;
 
+  //Formulário para adicionar task
   form {
     display: flex;
     align-items: flex-end;
@@ -38,35 +40,36 @@
     }
   }
 
+  //Botão para excluir todas as tasks
+  .delete_All {
+    border: 0.1rem solid black;
+    border-radius: 5px;
+    background-color: #F9F9F9;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 400;
+
+    &:hover{
+      filter: brightness(96%);
+    }
+  }
+  //Se nao houver, no minimo, 2 tasks, a seguinte classe é adicionada ao botao, fazendo-o sumir
+  .displayNone {
+    display: none;
+  }
+
+  //Lista das tasks
   ul {
     list-style: none;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-
-    .done_li {  
-      border-left: 1.2rem solid rgb(83, 170, 83);
-      background-color: #fff;
-      border-radius: 5px;
-      height: 6rem;
-      padding: 0 1rem 0 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+    gap: 1rem;    
     
-      label {
-        color: grey;
-      }
-    }
-
-    .exit {
-      animation: removeTaskAnim 0.5s ease 0s 1 reverse forwards;
-    }
-
     li {
       border-left: 1.2rem solid rgb(255, 146, 3);
       background-color: #fff;
@@ -81,7 +84,37 @@
       box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       animation: addTaskAnim 0.5s ease 0s 1 normal forwards;
     }
+    
+    //Se a task for concluida, a li e span passaram a ser assim:
+    .done_li {  
+      border-left: 1.2rem solid rgb(83, 170, 83);
+      background-color: #fff;
+      border-radius: 5px;
+      height: 6rem;
+      padding: 0 1rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      
+      label {
+        color: grey;
+      }
 
+      .done_span {
+        text-decoration: line-through;
+        text-decoration-thickness: 0.2rem;
+        text-decoration-color: black;
+      }
+    }
+
+    //Animação para a quando a task for excluida
+    .exitTask {
+      animation: removeTaskAnim 0.5s ease 0s 1 reverse forwards;
+    }
+    
     input {
       height: 1.5rem;
       width: 1.5rem;
@@ -103,36 +136,20 @@
         transform: translateY(0.2rem);
       }
     }
-  }
-
-  .delete_All {
-    border: 0.1rem solid black;
-    border-radius: 5px;
-    background-color: #F9F9F9;
-    margin-top: 0.5rem;
-    padding: 0 1rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 400;
-
-    &:hover{
-      filter: brightness(96%);
-    }
-  }
-
-  .displayNone {
-    display: none;
-  }
+  }  
 }
 
-.done_span {
-  text-decoration: line-through;
-  text-decoration-thickness: 0.2rem;
-  text-decoration-color: black;
+
+
+//Quando todas as tasks forem excluidas, a seguinte classe será adicionada à Ul, fazendo-a sumir
+.exitUl {
+  animation: exitUlAnimation 0.5s ease 0s 1 normal forwards;
 }
 
+
+//Animações
+
+//ao adicionar task
 @keyframes addTaskAnim {
 	0% {
 		opacity: 0;
@@ -145,6 +162,7 @@
 	}
 }
 
+//ao remover task
 @keyframes removeTaskAnim {
 	0% {
 		opacity: 0;
@@ -154,5 +172,18 @@
 	100% {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+//ao remover todas as tasks ao mesmo tempo
+@keyframes exitUlAnimation {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(250px);
 	}
 }

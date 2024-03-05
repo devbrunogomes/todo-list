@@ -14,6 +14,8 @@ export const Tasks: React.FC = () => {
 
   //Para armazenar o tamanho do array de tasks, para uma renderização condicional do botao delete all
   const tasksLength = tasks.length
+  
+  const [animationUl, setAnimationUl] = useState(false)
 
   //--------------------------------------------------------------
 
@@ -103,10 +105,21 @@ export const Tasks: React.FC = () => {
   //--------------------------------------------------------------
   //Função para apagar todas as tasks
   function handleDeleteAllButton() {
-    const emptyTasks: Task[] = []
-    setTasks(emptyTasks);
+    //Iniciar a animação de saída
+    setAnimationUl(true)
 
-    localStorage.setItem("tasks", JSON.stringify(emptyTasks));
+    //Processo de deletar as tasks envolvido num timeOut para esperar o tempo de animação
+    setTimeout(() => {
+      //Definindo um array sem tasks
+      const emptyTasks: Task[] = []
+      setTasks(emptyTasks);
+
+      //Atualizar o local storage
+      localStorage.setItem("tasks", JSON.stringify(emptyTasks));
+      
+      //Voltar o estado pra false para remover a classe da Ul 
+      setAnimationUl(false)
+    }, 500)
   }
   //--------------------------------------------------------------
   return (
@@ -140,7 +153,7 @@ export const Tasks: React.FC = () => {
         Delete All
       </button>
       {/* //-------------------------------------------------------------- */}
-      <ul>
+      <ul className={`list ${animationUl ? styles.exitUl : ""}`}>
         {/* Dentro do da minha lista ul, eu coloco um map, que vai estar o tempo todo mapeando o meu array task, que foi criado com o estado que pega a alteraçao do meu formulario */}
         {tasks.map((task) => {
           //Pra cada iteracao no array eu retorno um HTML
@@ -149,7 +162,7 @@ export const Tasks: React.FC = () => {
             <li
               key={task.id}
               className={`task ${task.done ? styles.done_li : " "} ${
-                task.exitAnimation ? styles.exit : " "
+                task.exitAnimation ? styles.exitTask : " "
               }`}
             >
               {/* obs: Ao contrario do evento do submit, aqui eu passo uma arrow function, pq a minha função tem um parametro, se eu fosse escrever apenas o nome da função, iria dar erro pq ela precisa de um parametro. E se eu apenas usasse o nome com o parametro eu estaria passando uma chamada de funcao, e nao uma funcao. E o onChange espera uma função. */}
