@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { TasksContext } from "../../context/TasksContext";
+import { Task, TasksContext } from "../../context/TasksContext";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 //Crio a interface que será o modelo do meu array do meu useState que pegará as tarefas
@@ -11,6 +11,9 @@ export const Tasks: React.FC = () => {
   const [taskTitle, setTaskTitle] = useState("");
 
   const { tasks, setTasks } = useContext(TasksContext);
+
+  //Para armazenar o tamanho do array de tasks, para uma renderização condicional do botao delete all
+  const tasksLength = tasks.length
 
   //--------------------------------------------------------------
 
@@ -30,7 +33,12 @@ export const Tasks: React.FC = () => {
     const newTasks = [
       //Eu uso uma variavel externa ao meu setTasks pois ele demora de jogar a tarefa ao localStorage. Dessa forma, eu driblo
       ...tasks, //pega as tarefas que já existiam, e coloca nesse novo valor do estado de tarefas
-      { id: new Date().getTime(), title: taskTitle, done: false, exitAnimation: false }, //No id tem uma função básica que gera um número único
+      {
+        id: new Date().getTime(),
+        title: taskTitle,
+        done: false,
+        exitAnimation: false,
+      }, //No id tem uma função básica que gera um número único
     ];
     setTasks(newTasks);
 
@@ -66,14 +74,14 @@ export const Tasks: React.FC = () => {
         return {
           ...task,
           exitAnimation: true,
-        }
+        };
       }
 
-      return task
-    })    
-    
-    //Para renderizar a animação, e logo após fazer a exclusão    
-      setTasks(tasksWithAnAnimation)  
+      return task;
+    });
+
+    //Para renderizar a animação, e logo após fazer a exclusão
+    setTasks(tasksWithAnAnimation);
 
     //Envolvi num setTimeOut pra atualizar o array (exclusão) após o tempo da animação
     setTimeout(() => {
@@ -86,15 +94,20 @@ export const Tasks: React.FC = () => {
 
       //Atualizo o estado do array com um setTasks, passando esse novo array sem a task que foi excluída
       setTasks(tasksWithoutAnTask);
-      
-      //Para salvar o array de tarefas dentro do armazenamento local
-      localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));     
-      
-    }, 500);             
-    
-  }  
-  
 
+      //Para salvar o array de tarefas dentro do armazenamento local
+      localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
+    }, 500);
+  }
+
+  //--------------------------------------------------------------
+  //Função para apagar todas as tasks
+  function handleDeleteAllButton() {
+    const emptyTasks: Task[] = []
+    setTasks(emptyTasks);
+
+    localStorage.setItem("tasks", JSON.stringify(emptyTasks));
+  }
   //--------------------------------------------------------------
   return (
     <section className={styles.container}>
@@ -118,7 +131,14 @@ export const Tasks: React.FC = () => {
 
         <button type="submit">Adicionar Tarefa</button>
       </form>
-      <button className={styles.delete_All}>Delete All</button>
+      <button
+        className={`button ${styles.delete_All} ${tasksLength < 2 ? styles.displayNone : ""}` }
+        onClick={() => {
+          handleDeleteAllButton();
+        }}
+      >
+        Delete All
+      </button>
       {/* //-------------------------------------------------------------- */}
       <ul>
         {/* Dentro do da minha lista ul, eu coloco um map, que vai estar o tempo todo mapeando o meu array task, que foi criado com o estado que pega a alteraçao do meu formulario */}
