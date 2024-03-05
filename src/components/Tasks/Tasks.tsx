@@ -2,6 +2,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { Task, TasksContext } from "../../context/TasksContext";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { RiMenuAddLine } from "react-icons/ri";
 
 //Crio a interface que será o modelo do meu array do meu useState que pegará as tarefas
 
@@ -13,9 +14,9 @@ export const Tasks: React.FC = () => {
   const { tasks, setTasks } = useContext(TasksContext);
 
   //Para armazenar o tamanho do array de tasks, para uma renderização condicional do botao delete all
-  const tasksLength = tasks.length
-  
-  const [animationUl, setAnimationUl] = useState(false)
+  const tasksLength = tasks.length;
+
+  const [animationUl, setAnimationUl] = useState(false);
 
   //--------------------------------------------------------------
 
@@ -106,20 +107,20 @@ export const Tasks: React.FC = () => {
   //Função para apagar todas as tasks
   function handleDeleteAllButton() {
     //Iniciar a animação de saída
-    setAnimationUl(true)
+    setAnimationUl(true);
 
     //Processo de deletar as tasks envolvido num timeOut para esperar o tempo de animação
     setTimeout(() => {
       //Definindo um array sem tasks
-      const emptyTasks: Task[] = []
+      const emptyTasks: Task[] = [];
       setTasks(emptyTasks);
 
       //Atualizar o local storage
       localStorage.setItem("tasks", JSON.stringify(emptyTasks));
-      
-      //Voltar o estado pra false para remover a classe da Ul 
-      setAnimationUl(false)
-    }, 500)
+
+      //Voltar o estado pra false para remover a classe da Ul
+      setAnimationUl(false);
+    }, 500);
   }
   //--------------------------------------------------------------
   return (
@@ -142,16 +143,9 @@ export const Tasks: React.FC = () => {
           />
         </div>
 
-        <button type="submit">Adicionar Tarefa</button>
+        <button type="submit"><RiMenuAddLine /></button>
       </form>
-      <button
-        className={`button ${styles.delete_All} ${tasksLength < 2 ? styles.displayNone : ""}` }
-        onClick={() => {
-          handleDeleteAllButton();
-        }}
-      >
-        Delete All
-      </button>
+
       {/* //-------------------------------------------------------------- */}
       <ul className={`list ${animationUl ? styles.exitUl : ""}`}>
         {/* Dentro do da minha lista ul, eu coloco um map, que vai estar o tempo todo mapeando o meu array task, que foi criado com o estado que pega a alteraçao do meu formulario */}
@@ -191,6 +185,18 @@ export const Tasks: React.FC = () => {
           );
         })}
       </ul>
+      <div className={styles.deleteAllWrapper}>
+        <button
+          className={`button ${styles.delete_All} ${
+            tasksLength < 2 ? styles.displayNone : ""
+          }`}
+          onClick={() => {
+            handleDeleteAllButton();
+          }}
+        >
+          Delete All
+        </button>
+      </div>
     </section>
   );
 };

@@ -30,36 +30,25 @@
     }
 
     button {
-      width: 15rem;
+      width:5rem;
       height: 4rem;
       border: none;
       border-radius: 0.5rem;
       background-color: #2a5feb;
       color: white;
       cursor: pointer;
-    }
-  }
+      font-size: 2.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
 
-  //Botão para excluir todas as tasks
-  .delete_All {
-    border: 0.1rem solid black;
-    border-radius: 5px;
-    background-color: #F9F9F9;
-    margin-top: 0.5rem;
-    padding: 0 1rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 400;
 
-    &:hover{
-      filter: brightness(96%);
+      &:hover {
+        background-color: #2143a3;
+        transition: background-color 0.5s ease;
+      }
     }
-  }
-  //Se nao houver, no minimo, 2 tasks, a seguinte classe é adicionada ao botao, fazendo-o sumir
-  .displayNone {
-    display: none;
   }
 
   //Lista das tasks
@@ -68,8 +57,8 @@
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;    
-    
+    gap: 1rem;
+
     li {
       border-left: 1.2rem solid rgb(255, 146, 3);
       background-color: #fff;
@@ -84,9 +73,9 @@
       box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       animation: addTaskAnim 0.5s ease 0s 1 normal forwards;
     }
-    
+
     //Se a task for concluida, a li e span passaram a ser assim:
-    .done_li {  
+    .done_li {
       border-left: 1.2rem solid rgb(83, 170, 83);
       background-color: #fff;
       border-radius: 5px;
@@ -98,7 +87,7 @@
       -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-      
+
       label {
         color: grey;
       }
@@ -114,7 +103,7 @@
     .exitTask {
       animation: removeTaskAnim 0.5s ease 0s 1 reverse forwards;
     }
-    
+
     input {
       height: 1.5rem;
       width: 1.5rem;
@@ -122,9 +111,10 @@
     }
 
     label {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       gap: 1rem;
       font-size: 1.6rem;
       font-weight: 600;
@@ -136,54 +126,83 @@
         transform: translateY(0.2rem);
       }
     }
-  }  
+  }
+
+  .deleteAllWrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+
+    //Botão para excluir todas as tasks
+    .delete_All {
+      border: none;
+      border-radius: 5px;
+      background-color: #2a5feb;
+      color: #fff;
+      margin-top: 0.5rem;
+      padding: 0 1rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 400;
+      transition: background-color 0.5s ease;
+
+      &:hover {
+        background-color: #2143a3;
+        transition: background-color 0.5s ease;
+      }
+      
+    }
+    //Se nao houver, no minimo, 2 tasks, a seguinte classe é adicionada ao botao, fazendo-o sumir
+    .displayNone {
+      display: none;
+    }
+  }
 }
-
-
 
 //Quando todas as tasks forem excluidas, a seguinte classe será adicionada à Ul, fazendo-a sumir
 .exitUl {
   animation: exitUlAnimation 0.5s ease 0s 1 normal forwards;
 }
 
-
 //Animações
 
 //ao adicionar task
 @keyframes addTaskAnim {
-	0% {
-		opacity: 0;
-		transform: translateX(250px);
-	}
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
 
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 //ao remover task
 @keyframes removeTaskAnim {
-	0% {
-		opacity: 0;
-		transform: translateX(250px);
-	}
+  0% {
+    opacity: 0;
+    transform: translateX(250px);
+  }
 
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 //ao remover todas as tasks ao mesmo tempo
 @keyframes exitUlAnimation {
-	0% {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-	100% {
-		opacity: 0;
-		transform: translateY(250px);
-	}
+  100% {
+    opacity: 0;
+    transform: translateX(-250px);
+  }
 }
