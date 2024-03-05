@@ -10,8 +10,6 @@ export const Tasks: React.FC = () => {
   //Estado para pegar o titulo das tarefas
   const [taskTitle, setTaskTitle] = useState("");
 
-  const [startAnimation, setStartAnimation] = useState(false);
-
   const { tasks, setTasks } = useContext(TasksContext);
 
   //--------------------------------------------------------------
@@ -32,7 +30,7 @@ export const Tasks: React.FC = () => {
     const newTasks = [
       //Eu uso uma variavel externa ao meu setTasks pois ele demora de jogar a tarefa ao localStorage. Dessa forma, eu driblo
       ...tasks, //pega as tarefas que já existiam, e coloca nesse novo valor do estado de tarefas
-      { id: new Date().getTime(), title: taskTitle, done: false }, //No id tem uma função básica que gera um número único
+      { id: new Date().getTime(), title: taskTitle, done: false, exitAnimation: false }, //No id tem uma função básica que gera um número único
     ];
     setTasks(newTasks);
 
@@ -63,13 +61,23 @@ export const Tasks: React.FC = () => {
   //--------------------------------------------------------------
   function handleRemoveTaskButton(taskId: number) {
     //Para iniciar a animação
-    setStartAnimation(true);    
+    const tasksWithAnAnimation = tasks.map((task) => {
+      if (taskId === task.id) {
+        return {
+          ...task,
+          exitAnimation: true,
+        }
+      }
+
+      return task
+    })    
     
+    //console.log(tasksWithAnAnimation)
 
     //Envolvi num setTimeOut pra atualizar o array após o tempo da animação
     setTimeout(() => {
       //Vou filtrar o array de tasks, excluindo a task com o id passado como parametro e armazeno num novo array
-      const tasksWithoutAnTask = tasks.filter((task) => {
+      const tasksWithoutAnTask = tasksWithAnAnimation.filter((task) => {
         if (task.id !== taskId) {
           return task;
         }
@@ -80,7 +88,7 @@ export const Tasks: React.FC = () => {
 
       //Para salvar o array de tarefas dentro do armazenamento local
       localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
-      setStartAnimation(false)
+      
       
     }, 500);
     
@@ -118,7 +126,7 @@ export const Tasks: React.FC = () => {
             <li
               key={task.id}
               className={`task ${task.done ? styles.done_li : " "} ${
-                startAnimation ? styles.exit : " "
+                task.exitAnimation ? styles.exit : " "
               }`}
             >
               {/* obs: Ao contrario do evento do submit, aqui eu passo uma arrow function, pq a minha função tem um parametro, se eu fosse escrever apenas o nome da função, iria dar erro pq ela precisa de um parametro. E se eu apenas usasse o nome com o parametro eu estaria passando uma chamada de funcao, e nao uma funcao. E o onChange espera uma função. */}
