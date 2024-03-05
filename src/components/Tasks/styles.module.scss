@@ -1,7 +1,7 @@
 .container {
   max-width: 60rem;
   padding: 1rem 2rem;
-  margin: 4rem auto 0;
+  margin: 3rem auto 0;
 
   form {
     display: flex;
@@ -45,8 +45,8 @@
     flex-direction: column;
     gap: 1rem;
 
-    .undone_li {
-      border-left: 1.2rem solid rgb(226, 134, 13);
+    .done_li {  
+      border-left: 1.2rem solid rgb(83, 170, 83);
       background-color: #fff;
       border-radius: 5px;
       height: 6rem;
@@ -57,6 +57,29 @@
       -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
       box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+    
+      label {
+        color: grey;
+      }
+    }
+
+    .exit {
+      animation: removeTaskAnim 0.5s ease 0s 1 reverse forwards;
+    }
+
+    li {
+      border-left: 1.2rem solid rgb(255, 146, 3);
+      background-color: #fff;
+      border-radius: 5px;
+      height: 6rem;
+      padding: 0 1rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+      animation: addTaskAnim 0.5s ease 0s 1 normal forwards;
     }
 
     input {
@@ -71,6 +94,7 @@
       justify-content: center;
       gap: 1rem;
       font-size: 1.6rem;
+      font-weight: 600;
 
       button {
         background: none;
@@ -84,18 +108,30 @@
 
 .done_span {
   text-decoration: line-through;
+  text-decoration-thickness: 0.2rem;
+  text-decoration-color: black;
 }
 
-.done_li {
-  border-left: 1.2rem solid rgb(83, 170, 83);
-  background-color: #fff;
-  border-radius: 5px;
-  height: 6rem;
-  padding: 0 1rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+@keyframes addTaskAnim {
+	0% {
+		opacity: 0;
+		transform: translateX(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes removeTaskAnim {
+	0% {
+		opacity: 0;
+		transform: translateX(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }

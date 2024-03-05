@@ -10,6 +10,8 @@ export const Tasks: React.FC = () => {
   //Estado para pegar o titulo das tarefas
   const [taskTitle, setTaskTitle] = useState("");
 
+  const [startAnimation, setStartAnimation] = useState(false);
+
   const { tasks, setTasks } = useContext(TasksContext);
 
   //--------------------------------------------------------------
@@ -60,18 +62,28 @@ export const Tasks: React.FC = () => {
   }
   //--------------------------------------------------------------
   function handleRemoveTaskButton(taskId: number) {
-    //Vou filtrar o array de tasks, excluindo a task com o id passado como parametro e armazeno num novo array
-    const tasksWithoutAnTask = tasks.filter((task) => {
-      if (task.id !== taskId) {
-        return task;
-      }
-    });
+    //Para iniciar a animação
+    setStartAnimation(true);    
+    
 
-    //Atualizo o estado do array com um setTasks, passando esse novo array sem a task que foi excluída
-    setTasks(tasksWithoutAnTask);
+    //Envolvi num setTimeOut pra atualizar o array após o tempo da animação
+    setTimeout(() => {
+      //Vou filtrar o array de tasks, excluindo a task com o id passado como parametro e armazeno num novo array
+      const tasksWithoutAnTask = tasks.filter((task) => {
+        if (task.id !== taskId) {
+          return task;
+        }
+      });
 
-    //Para salvar o array de tarefas dentro do armazenamento local
-    localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
+      //Atualizo o estado do array com um setTasks, passando esse novo array sem a task que foi excluída
+      setTasks(tasksWithoutAnTask);
+
+      //Para salvar o array de tarefas dentro do armazenamento local
+      localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
+      setStartAnimation(false)
+      
+    }, 500);
+    
   }
   //--------------------------------------------------------------
   return (
@@ -105,7 +117,9 @@ export const Tasks: React.FC = () => {
             //Cada elemento deve ter uma chave key unica, por isso usa-se o task.id, já que ele sempre tem um número único. E se usa sempre no 1o elemento retornado
             <li
               key={task.id}
-              className={task.done ? styles.done_li : styles.undone_li}
+              className={`task ${task.done ? styles.done_li : " "} ${
+                startAnimation ? styles.exit : " "
+              }`}
             >
               {/* obs: Ao contrario do evento do submit, aqui eu passo uma arrow function, pq a minha função tem um parametro, se eu fosse escrever apenas o nome da função, iria dar erro pq ela precisa de um parametro. E se eu apenas usasse o nome com o parametro eu estaria passando uma chamada de funcao, e nao uma funcao. E o onChange espera uma função. */}
               <input
