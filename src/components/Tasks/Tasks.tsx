@@ -72,9 +72,10 @@ export const Tasks: React.FC = () => {
       return task
     })    
     
-    //console.log(tasksWithAnAnimation)
+    //Para renderizar a animação, e logo após fazer a exclusão    
+      setTasks(tasksWithAnAnimation)  
 
-    //Envolvi num setTimeOut pra atualizar o array após o tempo da animação
+    //Envolvi num setTimeOut pra atualizar o array (exclusão) após o tempo da animação
     setTimeout(() => {
       //Vou filtrar o array de tasks, excluindo a task com o id passado como parametro e armazeno num novo array
       const tasksWithoutAnTask = tasksWithAnAnimation.filter((task) => {
@@ -85,14 +86,15 @@ export const Tasks: React.FC = () => {
 
       //Atualizo o estado do array com um setTasks, passando esse novo array sem a task que foi excluída
       setTasks(tasksWithoutAnTask);
-
+      
       //Para salvar o array de tarefas dentro do armazenamento local
-      localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));
+      localStorage.setItem("tasks", JSON.stringify(tasksWithoutAnTask));     
       
-      
-    }, 500);
+    }, 500);             
     
-  }
+  }  
+  
+
   //--------------------------------------------------------------
   return (
     <section className={styles.container}>
@@ -116,6 +118,7 @@ export const Tasks: React.FC = () => {
 
         <button type="submit">Adicionar Tarefa</button>
       </form>
+      <button className={styles.delete_All}>Delete All</button>
       {/* //-------------------------------------------------------------- */}
       <ul>
         {/* Dentro do da minha lista ul, eu coloco um map, que vai estar o tempo todo mapeando o meu array task, que foi criado com o estado que pega a alteraçao do meu formulario */}
