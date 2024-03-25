@@ -31,6 +31,13 @@ export const Header: React.FC = () => {
           <h1>To Do List</h1>
 
           <span>Bem vindo(a)</span>
+
+          <span>
+            Feito por
+            <a href="" target="_blank">
+              Bruno Gomes
+            </a>
+          </span>
         </div>
 
         <div>

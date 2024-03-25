@@ -9,14 +9,19 @@
   padding: 0 2rem;
   margin: 0 auto;
 
-  span {
-    font-size: 1.5rem;
+  span:first-of-type {
+    font-size: 2rem;
   }
 
   div:first-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    a {
+      margin-left: 0.4rem;
+      color: white;
+    }
   }
 
   div:last-child {
