@@ -6,9 +6,9 @@
 [HTML__BADGE]: https://img.shields.io/badge/HTML-fff?style=for-the-badge&logo=html5&logoColor=30A3DC
 [CSS__BADGE]: https://img.shields.io/badge/CSS3-fff?style=for-the-badge&logo=css3&logoColor=E94D5F
 [PROJECT__BADGE]: https://img.shields.io/badge/📱Visit_this_project-000?style=for-the-badge&logo=project
-[PROJECT__URL]: https://github.com/Fernanda-Kipper/Readme-Templates
+[PROJECT__URL]: https://todolistbsg.vercel.app/
 [PORTFOLIO__BADGE]: https://img.shields.io/badge/🖼PORTFOLIO-fff?style=for-the-badge&logo=project
-[PORTFOLIO__URL]: https://github.com/Fernanda-Kipper/Readme-Templates
+[PORTFOLIO__URL]: https://devbrunogomes.vercel.app/
 
 <h1 align="center" style="font-weight: bold;">To Do List 📝</h1>
 
