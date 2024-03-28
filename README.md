@@ -26,13 +26,13 @@
 
 <h2 id="started">🚀 Project</h2>
 
-On the long of the day, we need a little help for to do everything what we need do. So, this application can help us in this mission. They can't do everything for us, but every little help is great.
+All day long, we need a little help for to do everything what we need do. So, this application can help us in this mission. They can't do everything for us, but every little help is great.
 
 [![project][PROJECT__BADGE]][PROJECT__URL]
 
 <h2 id="started">🛠 Tools used</h2>
 
-For made this app, i used some technologies. Like SCSS for styles, and, for states management i used the 'context' from React Js.
+For made this app, I used some technologies. Like SCSS for styles, and, for states management I used the 'context' from React Js.
 
 
 <h2 id="colab">🤝 About Me</h2>
